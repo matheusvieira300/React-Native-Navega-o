@@ -25,7 +25,8 @@ export default function Produtores({ melhoresProdutores }) {
     renderItem={
       ({ item }) => <Produtor
        {...item} aoPressionar={() => {
-          navigation.navigate('Produtor') //aqui vai ser usado o name que é uma chave Única para poder chamar outra tela
+          navigation.navigate('Produtor', item) //aqui vai ser usado o name que é uma chave Única para poder chamar outra tela,
+          //e está sendo passado um parâmetro item
        }} />
     }
     keyExtractor={({ nome }) => nome}
