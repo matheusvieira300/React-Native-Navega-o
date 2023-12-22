@@ -20,8 +20,10 @@ export default function Detalhes({ nome, produtor, descricao, preco }) {
 
     <TouchableOpacity 
       style={estilos.botao} 
-      onPress={() => navigation.popToTop()}>
-          {/* onPress={() => navigation.reset({ o popToTop efetua o mesmo processo abaixo
+      onPress={() => navigation.navigate('HomeScreen', { compra: { nome }})}> 
+      {/* setando o caminho para a tela homeScreen passando os pârametros 
+passando para o HomeScreen um objeto que tem dentro compra que tem dentro o nome */}
+          {/* onPress={() => navigation.reset({ o popToTop efetua o mesmo processo abaixo, porém o popToTop não aceita parâmetros.
         index: 0,
         routes: [{ name: 'Home' }],
       })}> */}
