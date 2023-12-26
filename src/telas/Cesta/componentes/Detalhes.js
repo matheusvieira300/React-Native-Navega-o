@@ -20,7 +20,7 @@ export default function Detalhes({ nome, produtor, descricao, preco }) {
 
     <TouchableOpacity 
       style={estilos.botao} 
-      onPress={() => navigation.navigate('HomeScreen', 
+      onPress={() => navigation.navigate('Resumo', 
       { compra: { nome ,timestamp: + new Date() }})}> 
       {/* timestamp diz que horas são em um determinado tempo, (new Date()).valueOf()) o value of é o timestamp */}
       {/* setando o caminho para a tela homeScreen passando os pârametros 
