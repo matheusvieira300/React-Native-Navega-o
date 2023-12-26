@@ -11,7 +11,7 @@ export default function Produtores({ melhoresProdutores }) {
   const navigation = useNavigation(); // esse Hook dá acesso ao componente de navegação
   const route = useRoute();//hook para poder acessar os parâmetros
   
-  const [ exibeMensagem, setExibeMensagem ] = useState(false);
+  const [ exibeMensagem, setExibeMensagem ] = useState(false);//estado
 
   const lista = useProdutores(melhoresProdutores);
   const { tituloProdutores, mensagemCompra } = useTextos();
@@ -20,17 +20,29 @@ export default function Produtores({ melhoresProdutores }) {
   // console.log(nomeCompra);// só para verificar que ele está undefined
   // console.log(route.params);// para verificar os parametros passados na compra
 
+  const timestampCompra = route.params?.compra.timestamp;
+  //console.log(timestampCompra);
+
   const mensagemCompleta = mensagemCompra?.replace('$NOME', nomeCompra );//$NOME váriavel invetada em textos, se for undefined ele não vai prosseguir atráves do ?
 
   useEffect( () => {
-    setExibeMensagem()
-  }, [nomeCompra]);
+    setExibeMensagem(!!nomeCompra);
+    let timeout;// para setar quanto tempo a mensagem permanecerá visível
+
+    if (nomeCompra){
+      timeout = setTimeout(() => {//set timeout é um método para realizar alguma ação depois de determinado tempo
+        setExibeMensagem(false);
+    }, 3000);//valor em milisegundos, 3 segundos
+  }
+
+  return () => clearTimeout(timeout); //para limpar o timeout atual antes de utilizar o useEffect timstampcompra
+  }, [timestampCompra]);
 
   const TopoLista = () => {
     return <>
       <Topo melhoresProdutores={melhoresProdutores} />
       {/* é possível fazer validação lógica dentro dos xml, fazendo validação AND, Duas negações tornam um parâmetro booleana !! exclamação */}
-      { !!nomeCompra && <Text style={estilos.compra}>{ mensagemCompleta }</Text> }
+      { exibeMensagem && <Text style={estilos.compra}>{ mensagemCompleta }</Text> }
       <Text style={estilos.titulo}>{tituloProdutores}</Text>
     </>
   }
